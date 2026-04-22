@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+data/output/*.parquet
+data/output/*.json
+docs/architecture.pdf
