@@ -141,6 +141,7 @@ Recommended deployment steps:
 2. In Streamlit Community Cloud, create a new app from the repo.
 3. Set the main file path to `streamlit_app.py`.
 4. Keep `requirements.txt` in the repo root so Streamlit can install dependencies automatically.
+5. This repo includes `runtime.txt` to pin Python 3.11 for deployment, which avoids `pyarrow` source-build failures on newer unsupported Python versions.
 
 The app now generates its own demo Parquet outputs on first start, so it can boot in a fresh deployment without committed files under `data/output/`.
 
