@@ -131,6 +131,21 @@ streamlit run streamlit_app.py
 
 KPIs + Altair charts + an ad-hoc DuckDB SQL cell.
 
+## Deploy the dashboard
+
+GitHub Pages cannot host this app because Streamlit needs a running Python process. Use Streamlit Community Cloud for the dashboard, and use GitHub Pages only for static project pages if you want a landing page or documentation.
+
+Recommended deployment steps:
+
+1. Push the repository to GitHub.
+2. In Streamlit Community Cloud, create a new app from the repo.
+3. Set the main file path to `streamlit_app.py`.
+4. Keep `requirements.txt` in the repo root so Streamlit can install dependencies automatically.
+
+The app now generates its own demo Parquet outputs on first start, so it can boot in a fresh deployment without committed files under `data/output/`.
+
+This repo also includes a GitHub Actions workflow at `.github/workflows/streamlit-deploy.yml` that installs dependencies, builds the pipeline outputs, starts Streamlit in headless mode, and performs a simple health check on every push to `main` and on pull requests.
+
 ---
 
 ## Generate the architecture PDF

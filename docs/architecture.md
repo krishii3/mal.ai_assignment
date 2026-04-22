@@ -93,7 +93,6 @@ _Part 2 companion document. Target audience: Mal Data Platform lead + product-sq
 
 **What I intentionally cut from Part 1 and why.**
 
-
 - **Real DB (Postgres / Snowflake):** I did not add a database because Parquet + DuckDB already supports the queries needed for this assignment. That keeps the project easy to run locally.
 - **Avro + Schema Registry:** I did not use these because they are more useful in streaming systems with multiple services. This project is a batch CSV pipeline, so Pydantic models plus versioned schema changes were enough.
 - **Airflow/Prefect:** I left these out because they are orchestration tools for larger production workflows. For this assignment, they would add setup and complexity without improving the main pipeline logic.

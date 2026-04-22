@@ -18,6 +18,15 @@ ROOT = Path(__file__).resolve().parent
 V2 = ROOT / "data" / "output" / "unified_payments_v2.parquet"
 QUERY_FILE = ROOT / "sql" / "analytical_queries.sql"
 
+
+def _ensure_dashboard_data() -> None:
+    if V2.exists():
+        return
+
+    from src.main import run as run_pipeline
+
+    run_pipeline()
+
 PRESET_QUERIES = [
     {
         "name": "Q1. Daily payment volume",
@@ -111,8 +120,12 @@ st.title("Mal — Unified Payment Data Pipeline")
 st.caption("Canonical payment events across Cards, Transfers, and Bill Payments squads.")
 
 if not V2.exists():
-    st.error(f"Parquet not found at {V2}. Run `python -m src.main` first.")
-    st.stop()
+    try:
+        with st.spinner("Preparing demo data for the dashboard..."):
+            _ensure_dashboard_data()
+    except Exception as exc:  # pragma: no cover
+        st.error(f"Failed to prepare dashboard data: {exc}")
+        st.stop()
 
 con = duckdb.connect()
 df = con.sql(f"SELECT * FROM '{V2.as_posix()}'").df()
