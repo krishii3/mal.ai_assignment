@@ -31,11 +31,25 @@ The fastest path is the one-shot runner:
 ./run.sh
 ```
 
+On Windows Command Prompt:
+
+```bat
+run.cmd
+```
+
 If you want to manage the environment manually:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Windows manual activation:
+
+```bat
+python -m venv .venv
+.venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
@@ -49,6 +63,12 @@ Recommended:
 ./run.sh
 ```
 
+Windows equivalent:
+
+```bat
+run.cmd
+```
+
 Manual equivalent:
 
 ```bash
@@ -58,7 +78,7 @@ python docs/generate_pdf.py
 
 Outputs land under `data/output/`:
 
-```
+```text
 unified_payments_v1.parquet    canonical v1 events
 unified_payments_v2.parquet    migrated v2 events
 validation_errors.json         rejected records + reasons
@@ -83,12 +103,24 @@ To print that SQL file directly:
 ./run.sh --sql-queries
 ```
 
+Windows:
+
+```bat
+run.cmd --sql-queries
+```
+
 ---
 
 ## Launch the dashboard (optional)
 
 ```bash
 ./run.sh --dashboard
+```
+
+Windows:
+
+```bat
+run.cmd --dashboard
 ```
 
 Manual equivalent:
@@ -112,7 +144,7 @@ python docs/generate_pdf.py
 
 ## Project layout
 
-```
+```text
 demta/
 ├── data/
 │   ├── raw/                        mock input CSVs (3 squads)
@@ -136,7 +168,7 @@ demta/
 ## Design decisions (short form — long form in docs/architecture.md)
 
 | Choice | Why | What we rejected |
-|---|---|---|
+| --- | --- | --- |
 | Plain Python orchestration | Runnable locally with one command; under line budget | Airflow/Prefect (overkill for MVP) |
 | Pydantic v2 + Pandera | Record-level + DataFrame-level checks | Great Expectations (monitoring tool, 500+ line setup) |
 | Parquet + DuckDB | Columnar, schema-embedded, zero-install SQL | Postgres/SQLite (row-oriented; server setup) |
@@ -162,6 +194,10 @@ Streamlit dashboard and PDF generator are presentation artifacts; they sit outsi
 ./run.sh
 ```
 
+```bat
+run.cmd
+```
+
 ### Runner options
 
 ```bash
@@ -170,8 +206,18 @@ Streamlit dashboard and PDF generator are presentation artifacts; they sit outsi
 ./run.sh --help
 ```
 
+```bat
+run.cmd --dashboard
+run.cmd --sql-queries
+run.cmd --help
+```
+
 Extra args can be forwarded after `--`:
 
 ```bash
 ./run.sh -- --example-arg
+```
+
+```bat
+run.cmd -- --example-arg
 ```
